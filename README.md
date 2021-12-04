@@ -1,2 +1,2 @@
 # yourls-notifier
-Plugin for Yourls sending notifications to Discord
+Plugin for [Yourls](https://yourls.org/) sending notifications to Discord
