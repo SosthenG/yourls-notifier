@@ -1,3 +1,5 @@
+[![Listed in Awesome YOURLS!](https://img.shields.io/badge/Awesome-YOURLS-C5A3BE)](https://github.com/YOURLS/awesome-yourls/)
+
 # yourls-notifier
 Plugin for [Yourls](https://yourls.org/) sending notifications.
 
