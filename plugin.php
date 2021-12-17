@@ -48,7 +48,7 @@ function notify_new_link($data)
 {
     $discord_webhook = yourls_get_option('notifier_discord_webhook');
     if (empty($discord_webhook)) {
-        return;
+        return $data;
     }
 
     if ($data['status'] === 'success') {
@@ -70,6 +70,8 @@ function notify_new_link($data)
             ],
         ], new DateTime($data['url']['date']));
     }
+    
+    return $data;
 }
 
 yourls_add_action('plugins_loaded', 'notifier_loaded');
