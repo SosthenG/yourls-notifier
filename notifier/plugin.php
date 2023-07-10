@@ -3,7 +3,7 @@
 Plugin Name: Notifier
 Plugin URI: https://github.com/SosthenG/yourls-notifier
 Description: Sends a notification to Discord when a short is created
-Version: 1.1
+Version: 1.2
 Author: SosthenG
 Author URI: https://github.com/SosthenG
 */
@@ -80,6 +80,16 @@ function notifier_redirect_shorturl($args)
         return;
     }
 
+    try {
+        $table = YOURLS_DB_TABLE_URL;
+        $clicks = yourls_get_db()->fetchValue("SELECT `clicks` FROM `$table` WHERE `keyword` = :keyword", [
+            'keyword' => $args[1],
+        ]);
+        $clicks = (int)$clicks + 1;
+    } catch (Exception $e) {
+        $clicks = 'Unknown';
+    }
+
     notifier_discord($discord_webhook, 'Short "' . $args[1] . '" has just been used!', [
         [
             'name' => 'Short',
@@ -88,6 +98,10 @@ function notifier_redirect_shorturl($args)
         [
             'name' => 'Redirected to',
             'value' => $args[0]
+        ],
+        [
+            'name' => 'Clicks',
+            'value' => $clicks
         ],
     ]);
 
